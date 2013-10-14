@@ -28,6 +28,8 @@ class Forum2Discourse::Models::PunBB::Topic
       created_at: posted,
       category: forum.forum_name,
       category_desc: forum.forum_desc,
+      views: num_views,
+      reply_count: num_replies,
       posts: posts.map(&:to_discourse)
     })
   end

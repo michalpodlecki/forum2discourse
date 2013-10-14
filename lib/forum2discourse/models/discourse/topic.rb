@@ -8,6 +8,9 @@ class Forum2Discourse::Models::Discourse::Topic < Forum2Discourse::Models::Disco
   # Time attrs
   attr_accessor :created_at
 
+  # Statistics attrs
+  attr_accessor :views, :reply_count
+
   # Need to figure out what these are
   attr_accessor :archetype, :subtype, :meta_data
 

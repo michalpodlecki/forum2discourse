@@ -13,6 +13,7 @@ class Forum2Discourse::Importer
   # XXX consider reimplementing this as a Logger
   def log(message)
     puts message if ENV['F2C_LOG_LEVEL'].nil? || ENV['F2C_LOG_LEVEL'].to_i > 0
+    log_into_file message
   end
 
   def import
@@ -30,6 +31,7 @@ class Forum2Discourse::Importer
     guardian = Guardian.new(user)
     find_or_create_category(user, topic)
     discourse_topic = TopicCreator.new(user, guardian, topic.serialize).create
+    import_topic_details(discourse_topic, topic)
     import_topic_posts(discourse_topic, topic.posts)
   rescue
     puts "FAILED TO IMPORT TOPIC #{topic.title}"
@@ -109,5 +111,16 @@ class Forum2Discourse::Importer
         SiteSetting.send("#{setting}=", value)
       end
     end
+  end
+
+  def log_into_file(message)
+    File.open('migration_log.txt', 'a').puts message
+  end
+
+  def import_topic_details(topic, details)
+    topic.update_attributes({
+      views: details.views,
+      reply_count: details.reply_count
+    })
   end
 end
