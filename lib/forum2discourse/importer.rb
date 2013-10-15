@@ -79,6 +79,10 @@ class Forum2Discourse::Importer
     class << RateLimiter
       def disabled?; true; end
     end
+
+    Category.class_eval do
+      def create_category_definition; end
+    end
   end
 
   PERMISSIVE_SETTINGS = {
