@@ -31,6 +31,7 @@ class Forum2Discourse::Importer
     guardian = Guardian.new(user)
     find_or_create_category(user, topic)
     discourse_topic = TopicCreator.new(user, guardian, topic.serialize).create
+    discourse_topic.update_pinned(topic.pinned_at)
     import_topic_details(discourse_topic, topic)
     import_topic_posts(discourse_topic, topic.posts)
   rescue
