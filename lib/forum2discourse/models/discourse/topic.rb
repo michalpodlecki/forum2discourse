@@ -6,7 +6,7 @@ class Forum2Discourse::Models::Discourse::Topic < Forum2Discourse::Models::Disco
   attr_accessor :user_id, :last_post_user_id
 
   # Time attrs
-  attr_accessor :created_at
+  attr_accessor :created_at, :pinned_at
 
   # Statistics attrs
   attr_accessor :views, :reply_count

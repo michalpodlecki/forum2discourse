@@ -30,7 +30,14 @@ class Forum2Discourse::Models::PunBB::Topic
       category_desc: forum.forum_desc,
       views: num_views,
       reply_count: num_replies,
-      posts: posts.map(&:to_discourse)
+      posts: posts.map(&:to_discourse),
+      pinned_at: pinned?
     })
+  end
+
+  private
+  def pinned?
+    return nil unless sticky
+    Time.now
   end
 end
