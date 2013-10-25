@@ -24,7 +24,7 @@ class Forum2Discourse::Models::PunBB::Topic
     # Break early if the forum this post should be in does not exist anymore
     return nil if forum.nil?
     Forum2Discourse::Models::Discourse::Topic.new({
-      title: subject,
+      title: CGI::escapeHTML(subject),
       created_at: posted,
       category: forum.forum_name,
       category_desc: forum.forum_desc,
